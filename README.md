@@ -1,5 +1,5 @@
 # electron-translate
-Translate copied text
+Translate copied text by pressing shortcut keys
 
 ```sh
 git clone https://github.com/metinsaritas/electron-translate.git
@@ -12,3 +12,7 @@ Change `options.js` and set [**YANDEX_TRANSLATE_API_KEY**](https://tech.yandex.c
 ```sh
 npm start
 ```
+
+Copy text from anywhere and press `CommandOrControl+Shift+Space` (_SHORTCUT_KEY_)
+
+![App screenshoot](/img/screenshoot.png?raw=true "Screenshoot")
