@@ -34,7 +34,7 @@ app.on('ready', () => {
 
   const contexMenu = Menu.buildFromTemplate([{ label: 'Quit', accelerator: 'Command+Q', selector: 'terminate:'  }])
   appIcon.setContextMenu(contexMenu)
-  app.dock.hide()
+  app.dock && app.dock.hide()
 
   const ret = globalShortcut.register(Options.SHORTCUT_KEY, () => {
     if (BrowserWindow.getAllWindows().length >= 1) return
@@ -47,10 +47,6 @@ app.on('ready', () => {
   }
 
   console.log(`isRegistered ${Options.SHORTCUT_KEY}: `, globalShortcut.isRegistered(Options.SHORTCUT_KEY))
-})
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit()
 })
 
 app.on('activate', () => {
