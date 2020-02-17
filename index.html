@@ -13,11 +13,16 @@
       outline: none;
     }
 
+    .transparent {
+      background: transparent !important;
+    }
+
     html,
     body {
       margin: 0;
       padding: 0;
-      background: transparent;
+      background: #333;
+      overflow: hidden;
     }
 
     .searchbox-holder {
@@ -67,6 +72,7 @@
 
   <script>
     const {remote, clipboard} = require('electron')
+    const process = require('process')
 
     document.addEventListener("keydown", (e) => {
       if (e.keyCode == 27 /*ESC*/) {
@@ -75,6 +81,10 @@
     })
 
     window.addEventListener("load", () => {
+      if (process.platform === "darwin") {
+        document.body.classList.add("transparent")
+      }
+
       const searchBoxEl = document.getElementById("searchbox")
       searchBoxEl.focus()
       let text = searchBoxEl.value = clipboard.readText()

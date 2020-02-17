@@ -13,7 +13,8 @@ function createWindow () {
     },
     vibrancy:  "ultra-dark",
     frame: false,
-    resizable: false
+    resizable: false,
+    alwaysOnTop: true
   })
 
   mainWindow.center()
@@ -32,7 +33,7 @@ app.on('ready', () => {
   appIcon = new Tray(__dirname + '/img/translate-24.png')
   appIcon.setToolTip(`Translate shortcut active: ${Options.SHORTCUT_KEY}`)
 
-  const contexMenu = Menu.buildFromTemplate([{ label: 'Quit', accelerator: 'Command+Q', selector: 'terminate:'  }])
+  const contexMenu = Menu.buildFromTemplate([{ label: 'Quit', click: () => app.quit()  }])
   appIcon.setContextMenu(contexMenu)
   app.dock && app.dock.hide()
 
@@ -52,6 +53,8 @@ app.on('ready', () => {
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) createWindow()
 })
+
+app.on('window-all-closed', e => e.preventDefault())
 
 app.on('will-quit', () => {
   globalShortcut.unregisterAll()
