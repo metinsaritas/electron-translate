@@ -1,5 +1,6 @@
 const {app, BrowserWindow, globalShortcut, Tray, Menu} = require('electron')
 const path = require('path')
+const Options = require('./options')
 
 let appIcon = null
 function createWindow () {
@@ -29,13 +30,13 @@ app.allowRendererProcessReuse = false
 app.on('ready', () => {
 
   appIcon = new Tray(__dirname + '/img/translate-24.png')
-  appIcon.setToolTip('Translate shortcut active: CommandOrControl+Shift+Space')
+  appIcon.setToolTip(`Translate shortcut active: ${Options.SHORTCUT_KEY}`)
 
   const contexMenu = Menu.buildFromTemplate([{ label: 'Quit', accelerator: 'Command+Q', selector: 'terminate:'  }])
   appIcon.setContextMenu(contexMenu)
   app.dock.hide()
 
-  const ret = globalShortcut.register('CommandOrControl+Shift+Space', () => {
+  const ret = globalShortcut.register(Options.SHORTCUT_KEY, () => {
     if (BrowserWindow.getAllWindows().length >= 1) return
     
     createWindow()
@@ -45,7 +46,7 @@ app.on('ready', () => {
     console.log('registration failed')
   }
 
-  console.log("isRegistered CommandOrControl+Shift+Space: ", globalShortcut.isRegistered('CommandOrControl+Shift+Space'))
+  console.log(`isRegistered ${Options.SHORTCUT_KEY}: `, globalShortcut.isRegistered(Options.SHORTCUT_KEY))
 })
 
 app.on('window-all-closed', () => {
